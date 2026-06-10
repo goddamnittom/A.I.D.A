@@ -1,0 +1,19 @@
+model: "gemma:2b"          # Recommended starter: gemma:2b, phi3:mini, llama3.2:3b
+ollama_host: "http://localhost:11434"
+check_interval_minutes: 25
+daily_report_time: "20:00"
+max_cycles_before_reflect: 40
+monitor_only_crypto: true     # CRITICAL: Set to false only after thorough testing + risk controls
+wake_lock: true
+tools_enabled:
+  - shell_execute
+  - termux_notify
+  - get_location
+  - get_battery
+  - crypto_price
+  - web_search
+  - file_read
+  - file_write
+  - list_dir
+  - reflect
+  - update_goal

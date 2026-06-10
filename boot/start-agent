@@ -1,0 +1,20 @@
+#!/data/data/com.termux/files/usr/bin/sh
+# Termux:Boot script - runs on device boot
+
+termux-wake-lock
+
+cd $HOME/termux-agentic-ai
+
+# Start Ollama in background if not running
+if ! pgrep -f "ollama serve" > /dev/null 2>&1; then
+    echo "Starting Ollama..."
+    ollama serve > logs/ollama.log 2>&1 &
+    sleep 12
+fi
+
+# Start the agent daemon
+
+echo "Starting TermuxAgent at $(date)" >> logs/boot.log
+nohup python -m agent.agent --daemon >> logs/agent.log 2>&1 &
+
+echo "Agent launched in background."

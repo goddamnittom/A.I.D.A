@@ -1,0 +1,20 @@
+#!/data/data/com.termux/files/usr/bin/sh
+# termux-services compatible run script for the autonomous agent
+
+export HOME=/data/data/com.termux/files/home
+export PREFIX=/data/data/com.termux/files/usr
+export PATH=$PREFIX/bin:$PATH
+
+cd $HOME/termux-agentic-ai
+
+# Keep device awake
+termux-wake-lock
+
+# Ensure Ollama is available
+if ! pgrep -f "ollama serve" > /dev/null 2>&1; then
+    ollama serve > logs/ollama.log 2>&1 &
+    sleep 10
+fi
+
+# Launch the Python agent (it handles its own loop + logging)
+exec python -m agent.agent --daemon --log-level INFO
