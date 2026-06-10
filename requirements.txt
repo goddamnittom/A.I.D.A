@@ -1,0 +1,7 @@
+ollama
+requests
+beautifulsoup4
+lxml
+pyyaml
+ccxt
+python-dateutil
